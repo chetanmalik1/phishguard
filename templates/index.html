@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PhishGuard | Phishing Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="bg-animation"></div>
+
+<div class="main-card">
+    <h1>🛡️ PhishGuard</h1>
+    <p class="tagline">Advanced Phishing Detection System</p>
+
+    <form method="POST" class="scan-form">
+        <input type="text" name="url" placeholder="🔗 Enter website URL to scan..." required>
+        <button type="submit">Scan Now</button>
+    </form>
+
+    {% if result %}
+    <div class="result-section">
+        <h2>Scan Result</h2>
+
+        <div class="info-box">
+            <p><span>URL:</span> {{ result.url }}</p>
+            <p><span>Risk Score:</span> {{ result.score }}</p>
+            <p class="verdict {{ result.color }}">
+                <span>Verdict:</span> {{ result.verdict }}
+            </p>
+        </div>
+
+        {% if result.reasons %}
+        <div class="reasons-box">
+            <h3>⚠️ Detection Reasons</h3>
+            <ul>
+                {% for reason in result.reasons %}
+                <li>{{ reason }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <p class="footer-text">
+        Built by Chetan Malik 
+    </p>
+</div>
+
+</body>
+</html>
